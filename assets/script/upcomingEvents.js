@@ -7,13 +7,14 @@ function nuevasTarjetas(objetoTarjeta){
   <p class="card-text">${objetoTarjeta.description}</p>
   <div class="contain-detailes">
     <h3>$ ${objetoTarjeta.price}</h3>
-    <a href="./assets/pages/details.html" class="btn btn-dark">details</a>
+    <a href="../pages/details.html" class="btn btn-dark">details</a>
   </div>
 </div>
 </div>`
 }
 
 // la funcion es como por decir que es un molde 
+
 
 function filtrar (listaTarjeta){ 
     let upcoming= []
@@ -24,6 +25,8 @@ function filtrar (listaTarjeta){
     }
     return upcoming
 }
+
+// aqui guardo los datos que devuelve mi funcion
 let listaUpcoming = filtrar (data.events) 
 
 

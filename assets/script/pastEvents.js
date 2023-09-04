@@ -7,7 +7,7 @@ function nuevasTarjetas(objetoTarjeta){
   <p class="card-text">${objetoTarjeta.description}</p>
   <div class="contain-detailes">
     <h3>$ ${objetoTarjeta.price}</h3>
-    <a href="./assets/pages/details.html" class="btn btn-dark">details</a>
+    <a href="../pages/upcomingevents.html" class="btn btn-dark">details</a>
   </div>
 </div>
 </div>`
@@ -36,6 +36,7 @@ for (let tarjeta of tarjetasData ) {
 return totalTarjetas
 }
 let informeTotal = totalTarjetas(listaUpcoming)
+
 
 
 function mostrarTarjetas(verTotalidadTarjetas , id){
