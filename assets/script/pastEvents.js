@@ -1,20 +1,3 @@
-function nuevasTarjetas(objetoTarjeta){
-    return `
-    <div class="card" style="width: 16rem ">
-<img src="${objetoTarjeta.image}" class="card-img-top" alt="food_fair">
-<div class="card-body">
-  <h5 class="card-title">${objetoTarjeta.name}</h5>
-  <p class="card-text">${objetoTarjeta.description}</p>
-  <div class="contain-detailes">
-    <h3>$ ${objetoTarjeta.price}</h3>
-    <a href="../pages/upcomingevents.html" class="btn btn-dark">details</a>
-  </div>
-</div>
-</div>`
-}
-
-// la funcion es como por decir que es un molde 
-
 function filtrar (listaTarjeta){ 
     let upcoming= []
     for (let tarjeta of listaTarjeta) {
@@ -24,24 +7,86 @@ function filtrar (listaTarjeta){
     }
     return upcoming
 }
-let listaUpcoming = filtrar (data.events) 
+let listaPasado = filtrar (data.events) 
 
-
-
-function totalTarjetas(tarjetasData){  
-    let totalTarjetas="" 
-for (let tarjeta of tarjetasData ) {
-   totalTarjetas = totalTarjetas + nuevasTarjetas(tarjeta) 
+let containerTarjeta = document.getElementById("container-tarjetas")
+let containerSearch = document.getElementById("inputSearch")
+let containerCheckbox = document.getElementById("container-check")
+function nuevasTarjetas(objetoTarjeta) {
+  return `
+    <div class="card" style="width: 16rem ">
+    <img src="${objetoTarjeta.image}" class="card-img-top" alt="food_fair">
+    <div class="card-body">
+      <h5 class="card-title">${objetoTarjeta.name}</h5>  
+      <p class="card-text">${objetoTarjeta.description}</p>
+      <div class="contain-detailes">
+        <h3>$ ${objetoTarjeta.price}</h3>
+        <a href="./details.html?serch=${objetoTarjeta._id}" class="btn btn-dark">details</a>
+      </div>
+    </div>
+    </div>`
 }
-return totalTarjetas
+
+function totalTarjetas(tarjetasData , contenedor) {
+  
+  let template = ""   
+  for (let tarjeta of tarjetasData) {
+    template +=  nuevasTarjetas(tarjeta)
+  }
+ contenedor.innerHTML=template
 }
-let informeTotal = totalTarjetas(listaUpcoming)
 
+totalTarjetas(listaPasado , containerTarjeta)
 
+let funcionDelMap = evento => evento.category
 
-function mostrarTarjetas(verTotalidadTarjetas , id){
-    let containerInfo = document.getElementById(id)
-    containerInfo.innerHTML = verTotalidadTarjetas
+let categoriasMap = data.events.map(funcionDelMap)
+let categorias = [...new Set(categoriasMap)]
+
+function estructuraCheckbox(categorias) {
+  return `<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="${categorias}" id="${categorias.replace(" ", "-")}">
+  <label class="form-check-label" for="${categorias.replace(" ", "-")}">
+    ${categorias}
+  </label>
+</div>`
 }
-// aqui es donde ejecuto la funcion con la informacion real
-mostrarTarjetas(informeTotal , "container-events")
+function totalCheckbox(dataCheckbox , contenedor) {
+  let totalCheckbox = ""
+  for (let checkbox of dataCheckbox) {
+    totalCheckbox = totalCheckbox + estructuraCheckbox(checkbox)
+  }
+ contenedor.innerHTML = totalCheckbox
+}
+totalCheckbox(categorias ,containerCheckbox)
+
+
+
+// escuchadores de eventos
+
+containerSearch.addEventListener("input" ,()=>{
+  tercerFiltro()
+})
+
+containerCheckbox.addEventListener("change",() =>{
+  tercerFiltro()
+})
+
+// filtros
+
+function primerFiltro(array , inputValue){
+  return array.filter(evento => evento.name.toLowerCase().includes(inputValue.toLowerCase()))
+}
+
+function segundoFiltro(array , category)  { 
+  return array.filter(evento=>(category.includes(evento.category)|| category.length==0))
+}
+
+function tercerFiltro(){
+  let checkValue = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(elemento => elemento.value)
+  let primeraVuelta = primerFiltro(listaPasado , containerSearch.value)
+  let segundoVuelta = segundoFiltro(primeraVuelta , checkValue)
+  totalTarjetas(segundoVuelta , containerTarjeta)
+}
+
+

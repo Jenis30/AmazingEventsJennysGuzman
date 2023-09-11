@@ -1,8 +1,20 @@
+
 body {
     /* display: grid;
     min-height: 100vh;
     grid-template-rows: auto 1fr auto; */
     background-color: #e2e2e2;
+}
+
+header{
+    min-height: 10vh;
+}
+main{
+    min-height: 80vh;
+}
+
+footer{
+min-height: 10vh;
 }
 
 
@@ -78,6 +90,10 @@ li {
     justify-content: space-between;
 }
 
+.card{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
 
 
 h4 {
@@ -106,8 +122,7 @@ footer {
 
 #targeta-detalle {
     margin: 2rem 0rem;
-    /* width: 16rem; */
-    height: 25rem;
+    height: 40rem;
 }
 
 
@@ -151,6 +166,13 @@ form {
     border: solid 2px black;
     border-radius: 2rem;
     background-color: #fff4e5
+}
+#lupa{
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 1rem;
 }
 
 btn-primary:hover {
@@ -265,4 +287,20 @@ btn-primary:hover {
         width: 50%;
     }
 
+}
+@media (min-width: 320px){
+    #targeta-detalle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media (min-width: 391px){
+    #lupa{
+        display: flex;
+       flex-direction: column;
+       align-items: center;
+       
+    }
+   
 }
