@@ -39,18 +39,12 @@ export function totalCheckbox(dataCheckbox , contenedor) {
  contenedor.innerHTML = totalCheckbox
 }
 
-function primerFiltro(array , inputValue){ // en esta funcion recibe lo que se escriba en el input 
-  // el array que paso por parametro lo estoy iterando con el filter el evento que ingresando dentro de los
-  // parentesis seria mi primer objeto adsedo a mi propiedad name y la convierto en minuscula 
-  //include lo que hace es que pregunta y compara en este el name de nuestra car 
-  return array.filter(evento => evento.name.toLowerCase().includes(inputValue.toLowerCase()))
-  // en mi retur voy a tener mi nuevo con lo que coincida
-  
+function primerFiltro(array , inputValue){ 
+  return array.filter(evento => evento.name.toLowerCase().includes(inputValue.toLowerCase())) 
 }
 
 function segundoFiltro(array , category)  { 
   return array.filter(evento=>(category.includes(evento.category)|| category.length==0))
-  // en category linea 78 me va llegar a llegar un array con las categorias seleccionadas 
 }
 
 export function tercerFiltro(eventos , input , container){
